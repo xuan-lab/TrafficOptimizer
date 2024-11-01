@@ -38,8 +38,8 @@
 
 1. 克隆该项目到本地：
    ```bash
-   git clone <git clone https://github.com/xuan-lab/TrafficOptimizer.git>
-   cd 交通优化系统
+   git clone https://github.com/xuan-lab/TrafficOptimizer.git
+   cd TrafficOptimizer
    ```
 
 2. 编译每个源文件：
