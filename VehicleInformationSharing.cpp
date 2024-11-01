@@ -19,7 +19,7 @@ public:
     }
 
     std::string sendInfo() const {
-        return "Vehicle " + id + " is moving at " + std::to_string(speed) + " km/h";
+        return "Vehicle ID: " + id + " | Speed: " + std::to_string(speed) + " km/h";
     }
 
 private:
@@ -29,15 +29,23 @@ private:
 
 class TrafficSystem {
 public:
-    void addVehicle(const Vehicle& vehicle) {
-        vehicles.push_back(vehicle);
+    void addVehicle(const std::string& id) {
+        vehicles.emplace_back(id);
+    }
+
+    void updateVehicleSpeed(const std::string& id, int newSpeed) {
+        for (auto& vehicle : vehicles) {
+            if (vehicle.sendInfo().find(id) != std::string::npos) {
+                vehicle.updateSpeed(newSpeed);
+                break;
+            }
+        }
     }
 
     void broadcastInfo() const {
         for (const auto& vehicle : vehicles) {
             std::string info = vehicle.sendInfo();
             std::cout << info << std::endl;
-            // Simulate sending info over CAN
             sendCANMessage(info);
         }
     }
@@ -52,16 +60,12 @@ private:
 
 int main() {
     TrafficSystem trafficSystem;
-    Vehicle vehicle1("V1");
-    Vehicle vehicle2("V2");
+    trafficSystem.addVehicle("V1");
+    trafficSystem.addVehicle("V2");
 
-    vehicle1.updateSpeed(60);
-    vehicle2.updateSpeed(70);
+    trafficSystem.updateVehicleSpeed("V1", 60);
+    trafficSystem.updateVehicleSpeed("V2", 70);
 
-    trafficSystem.addVehicle(vehicle1);
-    trafficSystem.addVehicle(vehicle2);
-
-    // Broadcast vehicle info
     trafficSystem.broadcastInfo();
 
     return 0;
