@@ -38,7 +38,7 @@
 
 1. 克隆该项目到本地：
    ```bash
-   git clone <项目的git链接>
+   git clone <git clone https://github.com/xuan-lab/TrafficOptimizer.git>
    cd 交通优化系统
    ```
 
